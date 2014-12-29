@@ -8,7 +8,6 @@
 Sea::Sea(uint size, uint faceNum) :
 m_size(size),
 m_faceNum(faceNum),
-m_waveNum(WAVE_NUM),
 m_pShader(NULL),
 m_pVertices(NULL)
 {
@@ -75,17 +74,8 @@ bool Sea::Init()
 		}
 	}
 
-	//Init waves information
-	for(uint i = 0; i < WAVE_NUM; ++i)
-	{
-		m_waves[i].amplitude = 1.0f / (i + 1);
-		m_waves[i].waveLength = 16 * M_PI / (i + 1);
-		m_waves[i].speed = 1.0f + i;
-
-		float angle = (rand() / ((float)RAND_MAX)) * (M_PI / 1.5f) - (M_PI / 3.0f);
-		m_waves[i].direction = glm::vec2(cos(angle), sin(angle));
-	}
-
+	SetWaves();
+	
 	return true;
 }
 
@@ -124,4 +114,30 @@ void Sea::Draw(const glm::mat4 &mvp, float time)
 		glDisableVertexAttribArray(0);
 
 	glUseProgram(0);
+}
+
+void Sea::SetWaves()
+{
+	m_waveNum = 4;
+	m_waves[0] = {0.1f, 3.0f, 0.9f, GetDirectionVec(-M_PI/6.0f)};
+	m_waves[1] = {0.2f, 8.0f, 0.8f, GetDirectionVec(2*M_PI/3.0f)};
+	m_waves[2] = {0.5f, 16.0f, 3.0f, GetDirectionVec(M_PI/3.0f)};
+	m_waves[3] = {0.7f, 32.0f, 4.0f, GetDirectionVec(-M_PI/6.0f)};
+
+	/*
+	for(uint i = 0; i < m_waveNum; ++i)
+	{
+		m_waves[i].amplitude = 1.0f / (i + 1);
+		m_waves[i].waveLength = 16 * M_PI / (i + 1);
+		m_waves[i].speed = 1.0f + i;
+
+		float angle = (rand() / ((float)RAND_MAX)) * (M_PI / 1.5f) - (M_PI / 3.0f);
+		m_waves[i].direction = glm::vec2(cos(angle), sin(angle));
+	}*/
+}
+
+
+glm::vec2 Sea::GetDirectionVec(float angle) const
+{
+	return glm::vec2(cos(angle), sin(angle));
 }

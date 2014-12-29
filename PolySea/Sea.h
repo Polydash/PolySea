@@ -7,7 +7,7 @@
 typedef unsigned int uint;
 
 const float M_PI = 3.14159265358979323846f;
-const uint WAVE_NUM = 4;
+const uint WAVE_NUM = 16;
 
 struct WaveSettings
 {
@@ -33,5 +33,9 @@ public:
 
 	bool Init();
 	void Draw(const glm::mat4 &mvp, float time);
+
+private:
+	void SetWaves();
+	glm::vec2 GetDirectionVec(float angle) const;
 };
 

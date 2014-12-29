@@ -115,9 +115,9 @@ int main(int argc, char** argv)
 	}
 
 	glEnable(GL_DEPTH_TEST);
-	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
-	Sea sea(100, 40);
+	Sea sea(100, 20);
 	if(!sea.Init())
 	{
 		return EXIT_FAILURE;
@@ -153,6 +153,7 @@ int main(int argc, char** argv)
 		glm::mat4 modelview = glm::mat4(1.0f);
 
 		modelview = glm::rotate(modelview, 20.0f, glm::vec3(1.0f, 0.0f, 0.0f));
+		modelview = glm::rotate(modelview, 30.0f, glm::vec3(0.0f, 1.0f, 0.0f));
 		modelview = glm::translate(modelview, 0.0f, -5.0f, -50.0f);
 
 		glm::mat4 mvp = projection * modelview;

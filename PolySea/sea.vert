@@ -1,10 +1,9 @@
 #version 150 core
 
-#define WAVE_NUM 4
+#define WAVE_NUM 16
 
 in vec3 in_Vertex;
 out vec3 worldPos;
-//out vec3 normal;
 
 uniform float time;
 uniform mat4 mvp;
